@@ -3,175 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f172a" />
-  <title>ليلة امتحان الميدترم | Climate Change and Sustainability</title>
+  <meta name="theme-color" content="#090d16" />
+  <title>Climate Change & Sustainability | البشمهندس أشروووف</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- الهيدر العلوي النظيف والمتجاوب مع الموبايل -->
-  <header class="app-header">
-    <div class="header-inner">
-      <div class="brand-box">
-        <div class="brand-logo" aria-hidden="true">🌿</div>
-        <div class="brand-titles">
-          <div class="brand-name-row">
-            <span id="site-title-text" class="brand-main-title">ليلة امتحان الميدترم</span>
-            <span id="subject-badge-text" class="subject-tag">Climate Change & Sustainability</span>
-          </div>
-          <span id="dev-badge-text" class="dev-sub-credit">البشمهندس أشروووف</span>
-        </div>
+  <!-- هيدر مدمج ونظيف جداً (لا يأخذ مساحة من شاشة الموبايل) -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-brand">
+        <span class="brand-dot"></span>
+        <span class="brand-title">Climate Change</span>
+        <span class="brand-sep">|</span>
+        <span id="dev-badge-text" class="brand-dev">البشمهندس أشروووف</span>
       </div>
 
-      <div class="header-actions">
-        <button id="theme-toggle" class="theme-btn" type="button" aria-label="تبديل المظهر">
+      <div class="topbar-end">
+        <span id="top-contact-label" class="dua-pill">أسألكم دعوة حلوة من القلب ❤️</span>
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="تبديل المظهر">
           <span id="theme-icon">☀️</span>
-          <span id="theme-label" class="hide-mobile">نهاري</span>
         </button>
-        <div class="contact-btn" style="cursor: default;">
-          <span id="top-contact-label">أسألكم دعوة حلوة من القلب ❤️</span>
-        </div>
       </div>
     </div>
+
+    <!-- شريط الأقسام الرئيسية (يظهر على الكمبيوتر، وعلى الموبايل ينزل تحت كشريط تطبيق ثابت) -->
+    <nav class="desktop-nav" aria-label="أقسام الموقع">
+      <button class="main-nav-btn active" data-section="section-summaries" type="button">📚 التلخيصات</button>
+      <button class="main-nav-btn" data-section="section-last-exam" type="button">📄 امتحان السنة اللي فاتت</button>
+      <button class="main-nav-btn" data-section="section-basmaga" type="button">⚡ البصمجة</button>
+      <button class="main-nav-btn" data-section="section-full-exam" type="button">🎯 اختبر نفسك (200 سؤال)</button>
+    </nav>
   </header>
 
-  <!-- مقدمة نظيفة ومختصرة + شريط الأقسام الرئيسية -->
-  <section class="intro-banner">
-    <div class="container">
-      <div class="intro-card">
-        <h1 class="intro-title">
-          مراجعة الميدترم الشاملة — <span id="hero-subject-highlight">Climate Change and Sustainability</span>
-        </h1>
-        <p id="semester-subtitle-text" class="intro-desc">
-          تلخيصات الـ 4 أسابيع • حلول تطبيقية • امتحان الميدترم السابق • زتونة البصمجة • بنك الـ 200 سؤال بالتصحيح الفوري
-        </p>
+  <!-- المحتوى الرئيسي يبدأ فوراً بدون أي فواصل أو بانرات تضيع مساحة الشاشة -->
+  <main class="app-main">
 
-        <!-- شريط الأقسام الأربعة الرئيسية (أزرار واضحة وسريعة للديسكتوب والموبايل) -->
-        <nav class="main-sections-nav" aria-label="أقسام الموقع الرئيسية">
-          <button class="main-nav-btn active" data-section="section-summaries" type="button">
-            <span class="nav-icon">📚</span>
-            <span class="nav-text">1. التلخيصات</span>
-          </button>
-
-          <button class="main-nav-btn" data-section="section-last-exam" type="button">
-            <span class="nav-icon">📄</span>
-            <span class="nav-text">2. امتحان السنة اللي فاتت</span>
-          </button>
-
-          <button class="main-nav-btn" data-section="section-basmaga" type="button">
-            <span class="nav-icon">⚡</span>
-            <span class="nav-text">3. قسم البصمجة</span>
-          </button>
-
-          <button class="main-nav-btn" data-section="section-full-exam" type="button">
-            <span class="nav-icon">🎯</span>
-            <span class="nav-text">4. اختبر نفسك (200 سؤال)</span>
-          </button>
-        </nav>
-      </div>
-    </div>
-  </section>
-
-  <!-- المحتوى الرئيسي -->
-  <main class="container main-content">
-
-    <!-- ====================================================================
-         1. قسم التلخيصات (الـ 4 أسابيع + 4 أقسام فرعية لكل أسبوع)
-         ==================================================================== -->
+    <!-- 1. قسم التلخيصات -->
     <section id="section-summaries" class="main-section active">
-      <!-- شريط اختيار الأسبوع (سلس جداً باللمس على الموبايل وواضح على الكمبيوتر) -->
-      <div class="weeks-selector-box">
-        <div class="weeks-selector-header">
-          <span class="weeks-label">📑 اختر الأسبوع الدراسي:</span>
-          <span id="summaries-count-badge" class="count-tag">4 أسابيع</span>
-        </div>
-        <div id="summaries-list-container" class="weeks-pills-row">
-          <!-- يتم توليد أزرار الأسابيع ديناميكياً -->
-        </div>
-      </div>
+      <!-- شريط التحكم المدمج (اختيار الأسبوع + الـ 4 أقسام الفرعية في مساحة مدمجة جداً) -->
+      <div class="sticky-controls">
+        <!-- اختيار الأسبوع في سطر واحد فقط -->
+        <div id="summaries-list-container" class="weeks-bar"></div>
 
-      <!-- بطاقة الأسبوع المختار وأقسامه الـ 4 الفرعية -->
-      <div class="surface-card">
-        <div class="chapter-header-card">
-          <div class="chapter-meta-row">
-            <span id="active-summary-badge" class="chapter-badge">Week 1</span>
-            <span id="active-summary-time" class="chapter-time">⏱️ 30 دقيقة</span>
-          </div>
-          <h2 id="active-summary-title">Week 1: أهداف التنمية المستدامة (SDGs)</h2>
-          <p id="active-summary-subtitle">وصف الفصل</p>
-        </div>
-
-        <!-- التبويبات الـ 4 الفرعية لكل تلخيص -->
+        <!-- الـ 4 أقسام الفرعية في سطر واحد أنيق -->
         <div class="sub-tabs-bar" role="tablist">
-          <button class="sub-tab-btn active" data-subtab="sub-summary" type="button">
-            <span class="sub-step">أولاً</span>
-            <span class="sub-name">📖 التلخيص</span>
-          </button>
-          <button class="sub-tab-btn" data-subtab="sub-practice" type="button">
-            <span class="sub-step">ثانياً</span>
-            <span class="sub-name">✍️ حل على التلخيص</span>
-          </button>
-          <button class="sub-tab-btn" data-subtab="sub-past" type="button">
-            <span class="sub-step">ثالثاً</span>
-            <span class="sub-name">🗂️ أسئلة سنين سابقة</span>
-          </button>
-          <button class="sub-tab-btn" data-subtab="sub-quiz" type="button">
-            <span class="sub-step">رابعاً</span>
-            <span class="sub-name">🎯 اختبر نفسك</span>
-          </button>
+          <button class="sub-tab-btn active" data-subtab="sub-summary" type="button">📖 التلخيص</button>
+          <button class="sub-tab-btn" data-subtab="sub-practice" type="button">✍️ الحل</button>
+          <button class="sub-tab-btn" data-subtab="sub-past" type="button">🗂️ سنين سابقة</button>
+          <button class="sub-tab-btn" data-subtab="sub-quiz" type="button">🎯 اختبر نفسك</button>
         </div>
-
-        <!-- محتوى كل قسم فرعي -->
-        <div id="sub-summary" class="sub-panel active"></div>
-        <div id="sub-practice" class="sub-panel"></div>
-        <div id="sub-past" class="sub-panel"></div>
-        <div id="sub-quiz" class="sub-panel"></div>
       </div>
+
+      <!-- عنوان الأسبوع المختار في سطر مدمج شيك -->
+      <div class="active-week-strip">
+        <span id="active-summary-badge" class="week-tag">Week 1</span>
+        <h1 id="active-summary-title" class="week-heading">أهداف التنمية المستدامة (SDGs)</h1>
+      </div>
+
+      <!-- اللوحات الـ 4 -->
+      <div id="sub-summary" class="sub-panel active"></div>
+      <div id="sub-practice" class="sub-panel"></div>
+      <div id="sub-past" class="sub-panel"></div>
+      <div id="sub-quiz" class="sub-panel"></div>
     </section>
 
-    <!-- ====================================================================
-         2. قسم امتحان السنة اللي فاتت
-         ==================================================================== -->
+    <!-- 2. قسم امتحان السنة اللي فاتت -->
     <section id="section-last-exam" class="main-section">
-      <div id="last-exam-container" class="surface-card"></div>
+      <div id="last-exam-container"></div>
     </section>
 
-    <!-- ====================================================================
-         3. قسم البصمجة
-         ==================================================================== -->
+    <!-- 3. قسم البصمجة -->
     <section id="section-basmaga" class="main-section">
-      <div id="basmaga-container" class="surface-card"></div>
+      <div id="basmaga-container"></div>
     </section>
 
-    <!-- ====================================================================
-         4. قسم اختبر نفسك (200 سؤال)
-         ==================================================================== -->
+    <!-- 4. قسم اختبر نفسك (200 سؤال) -->
     <section id="section-full-exam" class="main-section">
-      <div id="full-exam-container" class="surface-card"></div>
+      <div id="full-exam-container"></div>
     </section>
 
   </main>
 
-  <!-- شريط التنقل السفلي الثابت للموبايل (لسهولة الاستخدام بيد واحدة على الهاتف) -->
-  <nav class="mobile-bottom-nav" aria-label="التنقل السريع على الهاتف">
+  <!-- شريط الموبايل السفلي (4 أقسام واضحة بضغطة واحدة) -->
+  <nav class="mobile-dock" aria-label="التنقل السريع">
     <button class="dock-item active" data-section="section-summaries" type="button">
-      <span class="dock-icon">📚</span>
-      <span class="dock-text">التلخيصات</span>
+      <span class="dock-ic">📚</span>
+      <span class="dock-lbl">التلخيصات</span>
     </button>
     <button class="dock-item" data-section="section-last-exam" type="button">
-      <span class="dock-icon">📄</span>
-      <span class="dock-text">امتحان سابق</span>
+      <span class="dock-ic">📄</span>
+      <span class="dock-lbl">امتحان سابق</span>
     </button>
     <button class="dock-item" data-section="section-basmaga" type="button">
-      <span class="dock-icon">⚡</span>
-      <span class="dock-text">البصمجة</span>
+      <span class="dock-ic">⚡</span>
+      <span class="dock-lbl">البصمجة</span>
     </button>
     <button class="dock-item" data-section="section-full-exam" type="button">
-      <span class="dock-icon">🎯</span>
-      <span class="dock-text">اختبر نفسك</span>
+      <span class="dock-ic">🎯</span>
+      <span class="dock-lbl">اختبر نفسك</span>
     </button>
   </nav>
 

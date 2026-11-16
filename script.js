@@ -72,11 +72,7 @@ function switchMainSection(targetId) {
     sec.classList.toggle("active", sec.id === targetId);
   });
 
-  // تمرير ناعم لبداية المحتوى على الموبايل
-  const mainContainer = document.querySelector(".main-container");
-  if (mainContainer && window.innerWidth <= 960) {
-    mainContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function initMainNavigation() {
@@ -134,21 +130,14 @@ function initThemeToggle() {
 // ============================================================================
 function renderSummariesSidebar() {
   const listContainer = document.getElementById("summaries-list-container");
-  const countBadge = document.getElementById("summaries-count-badge");
   const summaries = SITE_DATA.summaries || [];
-
-  if (countBadge) countBadge.textContent = `${summaries.length} تلخيصات`;
   if (!listContainer) return;
 
   listContainer.innerHTML = summaries
     .map(
       (item, idx) => `
-      <button type="button" class="summary-item-btn ${idx === currentSummaryIndex ? "active" : ""}" onclick="selectSummary(${idx})">
-        <div class="summary-num-circle">${item.number || idx + 1}</div>
-        <div class="summary-item-info">
-          <span class="summary-item-title">${item.title}</span>
-          <span class="summary-item-meta">⏱️ ${item.estimatedTime || "25 دقيقة"} • 4 أقسام</span>
-        </div>
+      <button type="button" class="week-pill-btn ${idx === currentSummaryIndex ? "active" : ""}" onclick="selectSummary(${idx})">
+        Week ${item.number || idx + 1}
       </button>
     `
     )
@@ -162,20 +151,19 @@ function selectSummary(index) {
   currentSummaryIndex = index;
   const current = summaries[index];
 
-  // تحديث حالة الأزرار في القائمة الجانبية أو شريط السحب
-  const sidebarButtons = document.querySelectorAll(".summary-item-btn");
-  sidebarButtons.forEach((btn, idx) => {
+  // تحديث حالة أزرار الأسابيع
+  const weekButtons = document.querySelectorAll(".week-pill-btn");
+  weekButtons.forEach((btn, idx) => {
     btn.classList.toggle("active", idx === index);
   });
 
-  // تحديث بيانات رأس التلخيص المختار
+  // تحديث عنوان الأسبوع المختار بدون تكرار كلمة Week X
   const badgeEl = document.getElementById("active-summary-badge");
-  const timeEl = document.getElementById("active-summary-time");
   if (badgeEl) badgeEl.textContent = `Week ${current.number || index + 1}`;
-  if (timeEl) timeEl.textContent = `⏱️ ${current.estimatedTime || "25 دقيقة"}`;
 
-  document.getElementById("active-summary-title").textContent = current.title;
-  document.getElementById("active-summary-subtitle").textContent = current.subtitle || "";
+  const cleanTitle = (current.title || "").replace(/^Week\s*\d+\s*:\s*/i, "");
+  const titleEl = document.getElementById("active-summary-title");
+  if (titleEl) titleEl.textContent = cleanTitle;
 
   // 1) أولاً: التلخيص نفسه
   const subSummaryEl = document.getElementById("sub-summary");
@@ -202,13 +190,10 @@ function selectSummary(index) {
   const problems = current.practiceProblems || [];
 
   subPracticeEl.innerHTML = `
-    <div class="quiz-result-banner" style="margin-bottom: 22px;">
-      <div>
-        <strong>📝 الأسئلة والاختبارات التطبيقية المحلولة (${problems.length} أسئلة)</strong>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">يمكنك تجربة اختيار الإجابة بنفسك أو الضغط على "إظهار الحل النموذجي" لرؤية الإجابة والتفسير.</p>
-      </div>
+    <div class="compact-toolbar">
+      <strong>✍️ تطبيقات محلولة (${problems.length} سؤال)</strong>
       <button type="button" class="toggle-answer-btn" onclick="toggleAllPracticeAnswers(${index}, this)">
-        👁️ إظهار جميع الحلول معاً
+        👁️ إظهار كل الحلول
       </button>
     </div>
 
@@ -225,7 +210,7 @@ function selectSummary(index) {
       <div class="qa-card" id="prac-card-${index}-${i}">
         <div class="qa-badges">
           <span class="badge ${prob.badgeText && prob.badgeText.includes("صح") ? "badge-purple" : "badge-blue"}">
-            ${prob.badgeText || `تدريب تطبيقي #${i + 1}`}
+            ${prob.badgeText || `تدريب #${i + 1}`}
           </span>
         </div>
 
@@ -260,14 +245,14 @@ function selectSummary(index) {
           id="prac-btn-${index}-${i}"
           onclick="togglePracticeAnswer(${index}, ${i})"
         >
-          👁️ إظهار الحل النموذجي والتفسير
+          👁️ إظهار الحل والتفسير
         </button>
 
         <div id="prac-ans-${index}-${i}" class="qa-answer">
           ${
             prob.answerTitle
               ? `<div class="ans-title-row">✅ ${prob.answerTitle}</div>
-                 <div class="ans-exp-row"><strong>📌 سبب الاختيار / التفسير:</strong> ${prob.explanation || ""}</div>`
+                 <div class="ans-exp-row"><strong>📌 التفسير:</strong> ${prob.explanation || ""}</div>`
               : `<div>${prob.answer || ""}</div>`
           }
         </div>
@@ -282,13 +267,10 @@ function selectSummary(index) {
   const pastQs = current.pastExamQuestions || [];
 
   subPastEl.innerHTML = `
-    <div class="quiz-result-banner" style="margin-bottom: 22px;">
-      <div>
-        <strong>🗂️ أسئلة امتحانات السنين السابقة على هذا الجزء (${pastQs.length} سؤالاً)</strong>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">اضغط على أي اختيار لتجربة الحل أو اضغط "إظهار الحل النموذجي والتفسير".</p>
-      </div>
+    <div class="compact-toolbar">
+      <strong>🗂️ أسئلة سنين سابقة (${pastQs.length} سؤال)</strong>
       <button type="button" class="toggle-answer-btn" onclick="toggleAllPastAnswers(${index}, this)">
-        👁️ إظهار جميع الحلول معاً
+        👁️ إظهار كل الحلول
       </button>
     </div>
 
@@ -530,13 +512,13 @@ function renderSummaryQuiz(questions, summaryIdx) {
   }
 
   subQuizEl.innerHTML = `
-    <div class="quiz-result-banner">
-      <div>
-        <strong>🎯 اختبر نفسك على هذا التلخيص (${questions.length} أسئلة)</strong>
-        <p style="font-size: 0.86rem; color: var(--text-muted);">اضغط على الإجابة الصحيحة لترى التصحيح الفوري والشرح.</p>
-      </div>
-      <div id="summary-quiz-score-${summaryIdx}" class="badge badge-blue" style="font-size: 0.95rem; padding: 8px 16px;">
-        النتيجة: 0 / ${questions.length}
+    <div class="compact-toolbar">
+      <strong>🎯 اختبر نفسك (${questions.length} سؤال)</strong>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span id="summary-quiz-score-${summaryIdx}" class="badge badge-blue" style="font-size: 0.82rem; padding: 4px 10px;">
+          النتيجة: 0 / ${questions.length}
+        </span>
+        <button type="button" class="toggle-answer-btn" onclick="selectSummary(${summaryIdx})">🔄 إعادة</button>
       </div>
     </div>
     ${questions
@@ -566,9 +548,6 @@ function renderSummaryQuiz(questions, summaryIdx) {
     `
       )
       .join("")}
-    <button type="button" class="primary-action-btn" onclick="selectSummary(${summaryIdx})">
-      🔄 إعادة اختبار هذا التلخيص
-    </button>
   `;
 }
 
@@ -608,22 +587,10 @@ function renderLastYearExam() {
   if (!container || !exam) return;
 
   container.innerHTML = `
-    <div class="workspace-hero-card">
-      <div class="workspace-hero-top">
-        <span class="chapter-pill">ميدترم العام السابق</span>
-        <span class="time-pill">📝 50 سؤالاً محلولاً بالتفسير</span>
-      </div>
-      <h2>📄 ${exam.title}</h2>
-      <p>${exam.examInfo}</p>
-    </div>
-
-    <div class="quiz-result-banner" style="margin-bottom: 24px;">
-      <div>
-        <strong>🎯 نموذج امتحان الميدترم الكامل (50 سؤالاً)</strong>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">اضغط على أي اختيار لتجربة الحل بنفسك أو اضغط "إظهار الحل النموذجي والتفسير".</p>
-      </div>
+    <div class="compact-toolbar">
+      <strong>📄 امتحان الميدترم السنة اللي فاتت (50 سؤالاً)</strong>
       <button type="button" class="toggle-answer-btn" onclick="toggleAllLastExamAnswers(this)">
-        👁️ إظهار جميع الحلول الـ 50 معاً
+        👁️ إظهار كل الحلول الـ 50
       </button>
     </div>
 
@@ -797,15 +764,6 @@ function renderBasmagaSection(selectedTab) {
   const showSection = (secId) => activeBasmagaTab === "all" || activeBasmagaTab === secId;
 
   container.innerHTML = `
-    <div class="workspace-hero-card">
-      <div class="workspace-hero-top">
-        <span class="chapter-pill" style="background: var(--gold); color: #0f172a;">زتونة ليلة الامتحان</span>
-        <span class="time-pill">⚡ 5 أقسام منظمة للحل الفوري</span>
-      </div>
-      <h2>🔥 ${basmaga.title}</h2>
-      <p>${basmaga.subtitle}</p>
-    </div>
-
     <!-- شريط الفلترة والبحث السريع داخل قسم البصمجة -->
     <div class="basmaga-controls-bar">
       <div class="basmaga-tabs-row">
@@ -1057,72 +1015,47 @@ function renderFullExamSection(selectedModuleId) {
   ];
 
   container.innerHTML = `
-    <div class="workspace-hero-card">
-      <div class="workspace-hero-top">
-        <span class="chapter-pill">بنك الامتحان الشامل</span>
-        <span class="time-pill">🎯 ${currentDisplayedExamQuestions.length} سؤالاً تفاعلياً</span>
-      </div>
-      <h2>🏆 ${exam.title}</h2>
-      <p>${exam.subtitle}</p>
-    </div>
-
-    <!-- شريط اختيار الموديول -->
-    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
-      ${modules
-        .map(
-          (m) => `
+    <div class="basmaga-controls-bar" style="margin-bottom: 10px;">
+      <div class="basmaga-tabs-row">
+        ${modules
+          .map(
+            (m) => `
+          <button
+            type="button"
+            class="basmaga-filter-pill ${activeFullExamModule === m.id ? "active" : ""}"
+            onclick="renderFullExamSection('${m.id}')"
+          >
+            ${m.title}
+          </button>
+        `
+          )
+          .join("")}
         <button
           type="button"
-          class="toggle-answer-btn ${activeFullExamModule === m.id ? "active-mod-btn" : ""}"
-          style="${
-            activeFullExamModule === m.id
-              ? "background: linear-gradient(135deg, #10b981, #059669); color: #fff; border-color: transparent;"
-              : ""
-          }"
-          onclick="renderFullExamSection('${m.id}')"
+          class="basmaga-filter-pill ${activeFullExamModule === "random-50" ? "active" : ""}"
+          onclick="renderFullExamSection('random-50')"
         >
-          ${m.title}
+          🎲 امتحان عشوائي (50)
         </button>
-      `
-        )
-        .join("")}
-      <button
-        type="button"
-        class="toggle-answer-btn"
-        style="${
-          activeFullExamModule === "random-50"
-            ? "background: linear-gradient(135deg, #f59e0b, #ea580c); color: #fff; border-color: transparent;"
-            : "border-color: var(--gold); color: var(--gold);"
-        }"
-        onclick="renderFullExamSection('random-50')"
-      >
-        🎲 امتحان عشوائي (50 سؤالاً)
-      </button>
+      </div>
     </div>
 
-    <div class="quiz-result-banner">
+    <div class="compact-toolbar">
       <div>
-        <strong style="font-size: 1.05rem;">
-          ⏱️ المؤقت: <span id="full-exam-timer" style="color: var(--emerald);">${exam.durationMinutes || 60}:00</span>
-          &nbsp;|&nbsp;
-          📊 نتيجتك المباشرة: <span id="full-exam-live-score" style="color: var(--cyan);">0 / ${currentDisplayedExamQuestions.length}</span>
-        </strong>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">اضغط على أي اختيار للتصحيح الفوري وإظهار التفسير، أو سلّم الامتحان بالكامل.</p>
+        <strong>⏱️ <span id="full-exam-timer" style="color: var(--accent);">${exam.durationMinutes || 60}:00</span></strong>
+        &nbsp;|&nbsp;
+        <strong>📊 النتيجة: <span id="full-exam-live-score" style="color: var(--blue);">0 / ${currentDisplayedExamQuestions.length}</span></strong>
       </div>
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button type="button" class="primary-action-btn" onclick="startFullExamTimer()">▶️ تشغيل المؤقت</button>
-        <button type="button" class="toggle-answer-btn" onclick="submitFullExam()">
-          👁️ إظهار جميع الحلول والتفسيرات
-        </button>
-        <button type="button" class="toggle-answer-btn" onclick="renderFullExamSection('${activeFullExamModule}')">
-          🔄 إعادة ضبط
-        </button>
+      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+        <button type="button" class="primary-action-btn" onclick="startFullExamTimer()">▶️ مؤقت</button>
+        <button type="button" class="toggle-answer-btn" onclick="submitFullExam()">👁️ إظهار الحلول</button>
+        <button type="button" class="toggle-answer-btn" onclick="renderFullExamSection('${activeFullExamModule}')">🔄</button>
       </div>
     </div>
 
     <div id="full-exam-score-box" style="display: none;" class="highlight-callout"></div>
 
-    <div id="full-exam-questions-list" style="margin-top: 18px;">
+    <div id="full-exam-questions-list" style="margin-top: 10px;">
       ${currentDisplayedExamQuestions
         .map(
           (q, qIdx) => `
