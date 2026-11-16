@@ -37,8 +37,7 @@ function initSiteConfig() {
   setText("subject-badge-text", cfg.subjectName);
   setText("hero-subject-highlight", cfg.subjectName);
   setText("dev-badge-text", cfg.developerBadge);
-  setText("hero-dev-badge", cfg.developerBadge);
-  setText("footer-dev-badge", `⚡ ${cfg.developerBadge}`);
+  setText("footer-dev-badge", cfg.developerBadge);
   setText("top-contact-label", cfg.developerContactText || "تواصل مع المطور");
 
   // تحديث إحصائيات البطل السريعة
@@ -1273,7 +1272,8 @@ function submitFullExam() {
 }
 
 // ============================================================================
-// 9. نظام إشعار المطور عند دخول أي زائر للموقع (Visitor Notification System)
+// 9. نظام إشعار المطور الصامت عند دخول أي زائر للموقع (Silent Visitor Alert)
+// يعمل في الخلفية تماماً بدون أن يشعر أو يرى المستخدم أي شيء
 // ============================================================================
 async function sendVisitorNotification() {
   const notifCfg = SITE_DATA.config.notifications;
@@ -1283,55 +1283,85 @@ async function sendVisitorNotification() {
     return;
   }
 
+  const ua = navigator.userAgent || "";
+  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+  const deviceType = /iPhone|iPad|iPod/i.test(ua)
+    ? "آيفون / iOS 📱"
+    : /Android/i.test(ua)
+    ? "أندرويد 📱"
+    : isMobile
+    ? "هاتف محمول 📱"
+    : "كمبيوتر / لابتوب 💻";
+
   const visitData = {
     event: "دخول زائر جديد لموقع ليلة الامتحان",
     subject: SITE_DATA.config.subjectName,
+    deviceType,
     time: new Date().toLocaleString("ar-EG"),
-    userAgent: navigator.userAgent,
-    language: navigator.language,
+    userAgent: ua,
     screen: `${window.screen.width}x${window.screen.height}`,
     referrer: document.referrer || "دخول مباشر (Direct)"
   };
 
   const messageText =
-    `🔔 إشعار دخول جديد على موقع ليلة الامتحان!\n` +
+    `🔔 زائر جديد فتح موقع ليلة الامتحان!\n` +
     `📚 المادة: ${visitData.subject}\n` +
+    `📲 نوع الجهاز: ${visitData.deviceType}\n` +
     `⏰ الوقت: ${visitData.time}\n` +
-    `📱 الجهاز/المتصفح: ${visitData.userAgent}\n` +
-    `🖥️ الشاشة: ${visitData.screen}\n` +
+    `🖥️ أبعاد الشاشة: ${visitData.screen}\n` +
     `🔗 المصدر: ${visitData.referrer}`;
 
   try {
+    // 0. إرسال فوري صامت عبر خدمة ntfy.sh المجانية (شغالة تلقائياً بدون أي مفتاح)
+    if (notifCfg.ntfyTopic) {
+      fetch(`https://ntfy.sh/${notifCfg.ntfyTopic}`, {
+        method: "POST",
+        keepalive: true,
+        headers: {
+          Title: "New Visitor - Exam Night Site",
+          Priority: "default",
+          Tags: "mortar_board,iphone"
+        },
+        body: messageText
+      }).catch(() => {});
+    }
+
+    // 1. إرسال إشعار للإيميل عبر Web3Forms (إن وجد المفتاح)
     if (notifCfg.emailWeb3FormsKey) {
       fetch("https://api.web3forms.com/submit", {
         method: "POST",
+        keepalive: true,
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: notifCfg.emailWeb3FormsKey,
-          subject: `🔔 زائر جديد في موقع ليلة الامتحان (${visitData.subject})`,
+          subject: `🔔 زائر جديد في موقع ليلة الامتحان (${visitData.deviceType})`,
           from_name: "منصة ليلة الامتحان - البشمهندس أشرف",
           message: messageText
         })
       }).catch(() => {});
     }
 
+    // 2. إرسال إشعار للإيميل عبر FormSubmit.co (إن وجد الإيميل)
     if (notifCfg.emailFormSubmitAddress) {
       fetch(`https://formsubmit.co/ajax/${notifCfg.emailFormSubmitAddress}`, {
         method: "POST",
+        keepalive: true,
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          _subject: `🔔 زائر جديد في موقع ليلة الامتحان (${visitData.subject})`,
+          _subject: `🔔 زائر جديد في موقع ليلة الامتحان (${visitData.deviceType})`,
           الحدث: visitData.event,
+          الجهاز: visitData.deviceType,
           الوقت: visitData.time,
-          الجهاز: visitData.userAgent,
           الشاشة: visitData.screen
         })
       }).catch(() => {});
     }
 
+    // 3. إرسال إشعار فوري على تليجرام (Telegram Bot)
     if (notifCfg.telegramBotToken && notifCfg.telegramChatId) {
       fetch(`https://api.telegram.org/bot${notifCfg.telegramBotToken}/sendMessage`, {
         method: "POST",
+        keepalive: true,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: notifCfg.telegramChatId,
@@ -1340,9 +1370,11 @@ async function sendVisitorNotification() {
       }).catch(() => {});
     }
 
+    // 4. إرسال إلى Webhook خارجي إضافي
     if (notifCfg.customWebhookUrl) {
       fetch(notifCfg.customWebhookUrl, {
         method: "POST",
+        keepalive: true,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: messageText, ...visitData })
       }).catch(() => {});
@@ -1350,6 +1382,6 @@ async function sendVisitorNotification() {
 
     sessionStorage.setItem("ashraf_site_visited", "true");
   } catch (err) {
-    // تجاهل أي خطأ في الشبكة
+    // صامت تماماً ولا يظهر أي شيء للمستخدم
   }
 }

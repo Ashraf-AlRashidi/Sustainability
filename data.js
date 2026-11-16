@@ -9,11 +9,10 @@ const SITE_DATA = {
     siteTitle: "ليلة امتحان الميدترم",
     subjectName: "Climate Change and Sustainability",
     semesterInfo: "مراجعة الميدترم الشاملة (Midterm Revision)",
-    developerName: "البشمهندس أشرف",
-    developerBadge: "معمول بواسطة البشمهندس أشرف",
-    // لينك التواصل مع البشمهندس أشرف عبر واتساب
-    developerContactUrl: "https://wa.me/201032802206",
-    developerContactText: "تواصل مع المطور",
+    developerName: "البشمهندس أشروووف",
+    developerBadge: "البشمهندس أشروووف",
+    developerContactUrl: "#",
+    developerContactText: "أسألكم دعوة حلوة من القلب ❤️",
 
     // ========================================================================
     // إعدادات إشعار دخول الزوار (Visitor Notification Settings)
@@ -23,18 +22,22 @@ const SITE_DATA = {
       enabled: true,
       notifyOncePerSession: true, // true = إشعار واحد لكل جلسة زائر، false = إشعار مع كل ريفريش
 
+      // قناة الإشعارات الفورية الصامتة المجانية (شغالة تلقائياً بدون أي تسجيل!)
+      // افتح https://ntfy.sh/ashraf_climate_midterm_2026 أو نزل تطبيق ntfy على موبايلك واشترك في القناة دي
+      ntfyTopic: "ashraf_climate_midterm_2026",
+
       // الطريقة 1: إشعار على الإيميل مجاناً عبر Web3Forms (حط الـ Access Key من web3forms.com)
-      emailWeb3FormsKey: "", // مثال: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      emailWeb3FormsKey: "",
 
-      // أو إشعار إيميل عبر FormSubmit (حط إيميلك هنا بعد تفعيله أول مرة على formsubmit.co)
-      emailFormSubmitAddress: "", // مثال: "ashraf@example.com"
+      // أو إشعار إيميل عبر FormSubmit (حط إيميلك هنا)
+      emailFormSubmitAddress: "",
 
-      // الطريقة 2: إشعار لحظي على تليجرام (Telegram Bot) - سريع جداً ومجاني
-      telegramBotToken: "", // مثال: "123456789:ABCdefGHIjklMNOpqrsTUVwxyz"
-      telegramChatId: "",   // مثال: "987654321"
+      // الطريقة 2: إشعار لحظي على تليجرام (Telegram Bot)
+      telegramBotToken: "",
+      telegramChatId: "",
 
-      // الطريقة 3: أي Webhook خارجي (Discord / Make / Zapier / Ntfy.sh)
-      customWebhookUrl: ""  // مثال: "https://ntfy.sh/ashraf-exam-night-alerts"
+      // الطريقة 3: أي Webhook خارجي إضافي
+      customWebhookUrl: ""
     }
   },
 
