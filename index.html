@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>ليلة الامتحان | معمول بواسطة البشمهندس أشرف</title>
+  <!-- خطوط عربية عصرية فاخرة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- خلفية الأورورا المضيئة المتحركة -->
+  <div class="aurora-bg" aria-hidden="true">
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- الشريط العلوي الزجاجي الفاخر (Top Glass Navbar) -->
+  <header class="glass-navbar">
+    <div class="nav-inner">
+      <!-- شعار الموقع -->
+      <div class="brand-cluster">
+        <div class="logo-3d">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-top-line">
+            <span id="site-title-text" class="site-main-name">ليلة امتحان الميدترم</span>
+            <span id="subject-badge-text" class="glow-pill">Climate Change and Sustainability</span>
+          </div>
+          <span class="dev-mini-tag">
+            <span class="pulse-dot"></span>
+            <span id="dev-badge-text">معمول بواسطة البشمهندس أشرف</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- أزرار الهيدر (الوضع الليلي/النهاري + تواصل مع المطور) -->
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-glass-btn" type="button" title="تبديل المظهر">
+          <span id="theme-icon">☀️</span>
+          <span id="theme-label" class="hide-sm">نهاري</span>
+        </button>
+
+        <a id="top-contact-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-royal-contact">
+          <span class="btn-shimmer"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          <span id="top-contact-label">تواصل مع المطور</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- بانر البطل الترحيبي الفخم (Hero Showcase) -->
+  <section class="hero-showcase">
+    <div class="hero-container">
+      <div class="hero-badge-wrapper">
+        <div class="ashraf-signature-pill">
+          <span class="crown-icon">👑</span>
+          <span id="hero-dev-badge">معمول بواسطة البشمهندس أشرف</span>
+          <span class="verified-check">✔</span>
+        </div>
+      </div>
+
+      <h1 class="hero-headline">
+        مراجعة ليلة امتحان الميدترم لمادة <span id="hero-subject-highlight" class="gradient-text">Climate Change and Sustainability</span>
+      </h1>
+      <p id="semester-subtitle-text" class="hero-subtext">
+        تلخيصات الميدترم • حلول تطبيقية • تجميعات السنين السابقة • زتونة البصمجة • اختبارات تفاعلية بالتصحيح الفوري
+      </p>
+
+      <!-- شريط التنقل الرئيسي للأقسام الـ 4 -->
+      <nav class="desktop-main-tabs" aria-label="الأقسام الرئيسية">
+        <button class="main-nav-btn active" data-section="section-summaries" type="button">
+          <span class="tab-icon-box">📚</span>
+          <div class="tab-text-box">
+            <span class="tab-label">1. قسم التلخيصات</span>
+            <span class="tab-desc">4 أقسام لكل تلخيص</span>
+          </div>
+        </button>
+
+        <button class="main-nav-btn" data-section="section-last-exam" type="button">
+          <span class="tab-icon-box">📄</span>
+          <div class="tab-text-box">
+            <span class="tab-label">2. امتحان السنة اللي فاتت</span>
+            <span class="tab-desc">بالحل النموذجي</span>
+          </div>
+        </button>
+
+        <button class="main-nav-btn" data-section="section-basmaga" type="button">
+          <span class="tab-icon-box">🔥</span>
+          <div class="tab-text-box">
+            <span class="tab-label">3. قسم البصمجة</span>
+            <span class="tab-desc">مفاتيح الحل السريع</span>
+          </div>
+        </button>
+
+        <button class="main-nav-btn" data-section="section-full-exam" type="button">
+          <span class="tab-icon-box">🏆</span>
+          <div class="tab-text-box">
+            <span class="tab-label">4. اختبر نفسك</span>
+            <span class="tab-desc">امتحان كامل تفاعلي</span>
+          </div>
+        </button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="main-container">
+
+    <!-- ====================================================================
+         1. قسم التلخيصات (بداخله قائمة التلخيصات، وكل تلخيص له 4 أقسام فرعية)
+         ==================================================================== -->
+    <section id="section-summaries" class="main-section active">
+      <div class="summaries-layout">
+
+        <!-- القائمة الجانبية (تتحول على الموبايل لشريط سحب أفقي ذكي فائق النعومة!) -->
+        <aside class="summaries-sidebar">
+          <div class="sidebar-header">
+            <div class="sidebar-title">
+              <span>📑 اختر التلخيص</span>
+            </div>
+            <span id="summaries-count-badge" class="count-pill">3 تلخيصات</span>
+          </div>
+          <div id="summaries-list-container" class="summary-list">
+            <!-- يتم توليد كروت التلخيصات ديناميكياً -->
+          </div>
+        </aside>
+
+        <!-- مساحة عرض التلخيص المختار وأقسامه الـ 4 الفرعية -->
+        <div class="summary-workspace">
+          <!-- رأس التلخيص المختار -->
+          <div class="workspace-hero-card">
+            <div class="workspace-hero-top">
+              <span id="active-summary-badge" class="chapter-pill">الفصل 1</span>
+              <span id="active-summary-time" class="time-pill">⏱️ 25 دقيقة</span>
+            </div>
+            <h2 id="active-summary-title">التلخيص الأول</h2>
+            <p id="active-summary-subtitle">وصف التلخيص</p>
+          </div>
+
+          <!-- التبويبات الـ 4 الفرعية لكل تلخيص (Segmented Control) -->
+          <div class="sub-tabs-wrapper">
+            <div class="sub-tabs-grid" role="tablist">
+              <button class="sub-tab-btn active" data-subtab="sub-summary" type="button">
+                <span class="sub-step-badge">أولاً</span>
+                <span class="sub-tab-title">📖 التلخيص</span>
+              </button>
+              <button class="sub-tab-btn" data-subtab="sub-practice" type="button">
+                <span class="sub-step-badge">ثانياً</span>
+                <span class="sub-tab-title">✍️ حل على التلخيص</span>
+              </button>
+              <button class="sub-tab-btn" data-subtab="sub-past" type="button">
+                <span class="sub-step-badge">ثالثاً</span>
+                <span class="sub-tab-title">🗂️ أسئلة سنين سابقة</span>
+              </button>
+              <button class="sub-tab-btn" data-subtab="sub-quiz" type="button">
+                <span class="sub-step-badge">رابعاً</span>
+                <span class="sub-tab-title">🎯 اختبر نفسك</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- اللوحات الفرعية الـ 4 -->
+          <div id="sub-summary" class="sub-panel active"></div>
+          <div id="sub-practice" class="sub-panel"></div>
+          <div id="sub-past" class="sub-panel"></div>
+          <div id="sub-quiz" class="sub-panel"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         2. قسم امتحان السنة اللي فاتت
+         ==================================================================== -->
+    <section id="section-last-exam" class="main-section">
+      <div id="last-exam-container" class="glass-panel-card"></div>
+    </section>
+
+    <!-- ====================================================================
+         3. قسم البصمجة
+         ==================================================================== -->
+    <section id="section-basmaga" class="main-section">
+      <div id="basmaga-container" class="glass-panel-card"></div>
+    </section>
+
+    <!-- ====================================================================
+         4. قسم اختبر نفسك (امتحان كامل)
+         ==================================================================== -->
+    <section id="section-full-exam" class="main-section">
+      <div id="full-exam-container" class="glass-panel-card"></div>
+    </section>
+
+  </main>
+
+  <!-- الفوتر الفاخر: بطاقة البشمهندس أشرف -->
+  <footer class="luxury-footer">
+    <div class="footer-glow-line"></div>
+    <div class="footer-card">
+      <div class="footer-dev-info">
+        <div class="dev-avatar-ring">
+          <span>👨‍💻</span>
+        </div>
+        <div>
+          <div id="footer-dev-badge" class="footer-dev-name">معمول بواسطة البشمهندس أشرف</div>
+          <p class="footer-dev-bio">
+            تم تصميم وتطوير هذه المنصة بأحدث التقنيات لمساعدة الطلاب على المراجعة الذكية والوصول للدرجة النهائية بأقل مجهود.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-cta-box">
+        <a id="footer-contact-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-royal-contact btn-large">
+          <span class="btn-shimmer"></span>
+          <span>💬 تواصل مع المطور الآن</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- شريط التنقل السفلي للموبايل (Mobile App Bottom Dock) -->
+  <nav class="mobile-bottom-dock" aria-label="تنقل الموبايل السريع">
+    <button class="dock-item active" data-section="section-summaries" type="button">
+      <span class="dock-icon">📚</span>
+      <span class="dock-label">التلخيصات</span>
+    </button>
+    <button class="dock-item" data-section="section-last-exam" type="button">
+      <span class="dock-icon">📄</span>
+      <span class="dock-label">امتحان سابق</span>
+    </button>
+    <button class="dock-item" data-section="section-basmaga" type="button">
+      <span class="dock-icon">🔥</span>
+      <span class="dock-label">البصمجة</span>
+    </button>
+    <button class="dock-item" data-section="section-full-exam" type="button">
+      <span class="dock-icon">🏆</span>
+      <span class="dock-label">اختبر نفسك</span>
+    </button>
+    <a id="dock-contact-link" href="#" target="_blank" rel="noopener noreferrer" class="dock-item dock-contact">
+      <span class="dock-icon">💬</span>
+      <span class="dock-label">المطور</span>
+    </a>
+  </nav>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
